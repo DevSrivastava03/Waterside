@@ -16,7 +16,6 @@ body {
     align-items: center; /* Center the content vertically and horizontally */
 }
 
-/* Full-screen Canvas */
 canvas {
     position: absolute;
     top: 0;
@@ -26,8 +25,7 @@ canvas {
     display: block;
 }
 
-/* Centered text styling */
-/* Base styling for <p> */
+
 p {
     color:rgb(255, 255, 255); /* Initial text color */
     font-family: 'Poppins', sans-serif;
