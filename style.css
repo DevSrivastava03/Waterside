@@ -1,0 +1,60 @@
+/* Import custom font */
+@font-face {
+    font-family: 'Biography';
+    src: url('fonts/Biography.otf') format('opentype');
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(51, 51, 51, 0); /* Transparent background */
+    position: fixed; /* Sticks the navbar at the top */
+    top: 0;
+    width: 100%; /* Full-width navbar */
+    z-index: 1; /* Places it above the video */
+    display: flex; /* Use flexbox to align items */
+    justify-content: space-between; /* Distribute items to left and right */
+    padding: 10px 0px;
+}
+
+.navbar li {
+    list-style: none; /* Remove default list style */
+}
+
+.navbar li a {
+    color: rgb(134, 6, 6);
+    font-family: 'Biography'; /* Match the h1 font */
+    text-align: center;
+    text-decoration: none;
+    font-size: 48px; /* Adjust size for readability */
+    padding: 8px 16px;
+}
+
+.navbar li a:hover {
+    background-color: rgba(51, 51, 51, 0) /* Darker background on hover */
+}
+
+/* Background video styling */
+#background-video {
+    position: fixed; /* Sticks to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%; /* Covers the full width */
+    height: 100%; /* Covers the full height */
+    object-fit: cover; /* Ensures the video fills the screen */
+    z-index: -1; /* Places it behind all other content */
+}
+
+/* Style for h1 to stand out over the video */
+h1 {
+    color: hsl(0, 88%, 30%);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Improves readability */
+    font-family: 'Biography'; /* Use custom font */
+    font-size: 72px;
+    position: relative; 
+    text-align: center;
+    margin-top: 22%;
+}
