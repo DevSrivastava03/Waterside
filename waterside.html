@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="waterside.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+</head>
+<body>
+
+    <ul class="navbar">
+        <li><a href="about.html">About</a></li>
+        <li><a href="postcards.html">Postcards</a></li>
+    </ul>
+    <img src="Images/tv.png" alt="tv img">
+
+    <ul class="navbar">
+        <li><a href="about.html">About</a></li>
+        <li><a href="postcards.html">Postcards</a></li>
+    </ul>
+    <img src="Images/tv.png" alt="tv img">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+
+    <script>
+        let waterImg;
+        let cloudsImg;
+let trialImg;
+let boyIdleImg;
+let boyWalk1Img;
+let boyWalk2Img;
+let postcardImg;
+let postcard2Img;
+let soundIconImg;
+let levelImg;
+let audio;
+let customFont;
+let oldman;
+let scene2;
+let boyX = 250;
+let boyY = 450;
+let jumpVelocity = 0;
+let isJumping = false;
+
+let walkingFrame = 0;
+let walkingSpeed = 5;
+let isMoving = false;
+
+let postcardX = 400;
+let postcardY = 320;
+let showPostcard = true;
+let showTextBox = false;
+let transitionFrame = 0;
+
+let soundIconX = 480;
+let soundIconY = 170;
+let soundIconSize = 40;
+
+let textToDisplay = "This is the text that will appear like a typewriter effect.";
+let displayedText = "";
+let charIndex = 0;
+let typingSpeed = 1;
+
+// Platforms array with each platform having an x, y, width, and height
+let platforms = [
+  { x: 100, y: 450, w: 100, h: 20 },
+  { x: 250, y: 410, w: 100, h: 20 },
+  { x: 400, y: 390, w: 100, h: 20 },
+  { x: 490, y: 320, w: 100, h: 20 }
+];
+
+let currentScene = 1; // Track the current scene
+
+function preload() {
+  waterImg = loadImage("Image/Water.jpeg");
+  cloudsImg = loadImage("Image/Clouds.jpeg");
+  trialImg = loadImage("Image/Trial.jpeg");
+  boyIdleImg = loadImage("Image/boy_idle.png");
+  boyWalk1Img = loadImage("Image/boy_walk1.png");
+  boyWalk2Img = loadImage("Image/boy_walk2.png");
+  postcardImg = loadImage("Image/postcard.png");
+  postcard2Img = loadImage("Image/postcard opening.png");
+  soundIconImg = loadImage("Image/sound.png");
+//   audio = loadSound("Image/Waterside Plaza 2.mp3");
+  customFont = loadFont("PixelifySans-VariableFont_wght.ttf");
+  levelImg = loadImage("Image/Levels.png");
+  oldman = loadImage("Image/Old man.png");
+  scene2 = loadImage("Image/Scene 2.jpeg");
+}
+
+function setup() {
+  createCanvas(600, 600);
+  frameRate(30);
+  let x = (windowWidth - width) / 2;  // Calculate the X position
+  let y = (windowHeight - height) / 2; 
+  textFont(customFont);
+}
+
+function draw() {
+  if (currentScene === 1) {
+    // Scene 1 logic
+    background(220);
+
+    // Draw the background image
+    image(trialImg, 0, 0, 600, 610);
+
+    // Handle movement
+    isMoving = false;
+    if (keyIsDown(LEFT_ARROW)) {
+      boyX -= walkingSpeed;
+      isMoving = true;
+    }
+    if (keyIsDown(RIGHT_ARROW)) {
+      boyX += walkingSpeed;
+      isMoving = true;
+    }
+
+    // Apply jumping physics
+    if (isJumping) {
+      boyY += jumpVelocity;
+      jumpVelocity += 0.5;
+
+      if (boyY >= 450) {
+        boyY = 450;
+        isJumping = false;
+        jumpVelocity = 0;
+      }
+    }
+
+    // Determine the image to display
+    let boyImg;
+    if (isJumping) {
+      boyImg = boyIdleImg;
+    } else if (isMoving) {
+      boyImg = walkingFrame < 15 ? boyWalk1Img : boyWalk2Img;
+      walkingFrame = (walkingFrame + 1) % 30;
+    } else {
+      boyImg = boyIdleImg;
+    }
+
+    // Draw the boy
+    image(boyImg, boyX, boyY, boyImg.width / 8, boyImg.height / 8);
+
+    // Draw the platforms with levelImg
+    platforms.forEach((platform) => {
+      image(levelImg, platform.x, platform.y, platform.w, platform.h);
+    });
+
+    // Draw the old man image on the last platform
+    let lastPlatform = platforms[platforms.length - 1]; // Get the last platform
+    image(oldman, lastPlatform.x + 50, lastPlatform.y - 40, oldman.width, oldman.height);
+
+    // Check if the boy lands on a platform
+    platforms.forEach((platform) => {
+      if (
+        boyX + 30 > platform.x &&
+        boyX + 30 < platform.x + platform.w &&
+        boyY + 50 <= platform.y &&
+        boyY + 50 + jumpVelocity >= platform.y
+      ) {
+        boyY = platform.y - 90; // Reset the boy's Y position to be on top of the platform
+        jumpVelocity = 0;
+        isJumping = false;
+      }
+    });
+
+    // Draw the postcard if it is visible
+    if (showPostcard) {
+      image(postcardImg, postcardX, postcardY, postcardImg.width / 4, postcardImg.height / 4);
+
+      if (dist(boyX, boyY, postcardX, postcardY) < 50) {
+        fill(255, 255, 0);
+        textSize(16);
+        text("Press ENTER to interact", postcardX - 40, postcardY - 20);
+      }
+    }
+
+    // Handle postcard opening transition
+    if (transitionFrame > 0 && transitionFrame < 30) {
+      image(postcard2Img, postcardX, postcardY, postcard2Img.width / 8, postcard2Img.height / 8);
+      transitionFrame++;
+      if (transitionFrame === 30) {
+        showTextBox = true;
+      }
+    }
+
+    // Typewriter effect for the text
+    if (charIndex < textToDisplay.length && frameCount % typingSpeed === 0) {
+      displayedText += textToDisplay[charIndex];
+      charIndex++;
+    }
+
+    // Show text box if triggered
+    if (showTextBox) {
+      fill(0, 0, 0, 150);
+      rect(50, 50, 500, 200, 10); // Text box background
+      fill(255);
+      textSize(20);
+      text(
+        "I came to the pier to clear my head, but all I can think about is you. The water is calm tonight, but my heart isn’t. I think this is goodbye. I’ll always care for you, but we both know we’re drifting apart. I’ll miss you, but I think it’s time for us to let go. Goodbye, K.",
+        80,
+        90,
+        440
+      );
+      textSize(16);
+      text("Press ESC to close", 60, 65);
+
+      // Draw sound icon
+      image(soundIconImg, soundIconX, soundIconY, soundIconSize, soundIconSize);
+    }
+  } else if (currentScene === 2) {
+    // Scene 2 logic
+    background(0);
+    image(scene2, 0, 0, width, height);
+  }
+}
+
+function mousePressed() {
+  // Check if the sound icon is clicked
+  if (
+    showTextBox &&
+    mouseX > soundIconX &&
+    mouseX < soundIconX + soundIconSize &&
+    mouseY > soundIconY &&
+    mouseY < soundIconY + soundIconSize
+  ) {
+    if (!audio.isPlaying()) {
+      audio.play(); // Play audio
+    } else {
+      audio.stop(); // Stop audio if it's already playing
+    }
+  }
+}
+
+function keyPressed() {
+  if (keyCode === UP_ARROW && !isJumping) {
+    isJumping = true;
+    jumpVelocity = -10;
+  }
+
+  if (keyCode === ENTER) {
+    // Check if the boy is near the old man
+    let lastPlatform = platforms[platforms.length - 1];
+    let oldManX = lastPlatform.x + 50;
+    let oldManY = lastPlatform.y - 40;
+
+    // Adjust threshold to reflect the actual dimensions and scaling
+    if (dist(boyX + 30, boyY + 50, oldManX, oldManY + 40) < 60) {
+      currentScene = 2; // Move to Scene 2
+    }
+
+    // Check postcard interaction
+    if (showPostcard && dist(boyX, boyY, postcardX, postcardY) < 50) {
+      showPostcard = false;
+      transitionFrame = 1;
+    }
+  }
+
+  if (keyCode === ESCAPE && showTextBox) {
+    showTextBox = false;
+  }
+}
+
+
+    </script>
+    
+</body>
+</html>

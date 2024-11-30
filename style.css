@@ -65,3 +65,11 @@ h1 {
     text-align: center;
     margin-top: 22%;
 }
+a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Ensures the link inherits the color of its parent */
+}
+
+a:hover {
+    text-decoration: none; /* Optional: Add underline on hover for emphasis */
+}
