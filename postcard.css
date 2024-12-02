@@ -5,73 +5,60 @@
     box-sizing: border-box;
 }
 
-h1 {
-    color: hsl(0, 88%, 30%);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'Biography', sans-serif;
-    font-size: 48px;
-    text-align: center;
-    margin: 20px 0;
-    text-decoration: none;
-}
-
-/* Body Styling */
-body {
+html, body {
+    width: 100vw;
+    height: 100vh; /* Ensure the body height fits the screen */
+    overflow-x: hidden; /* Prevent horizontal overflow */
     font-family: Arial, sans-serif;
     background-color: #FFE8D2;
-    overflow: hidden; /* Prevent scrolling outside the gallery */
 }
 
-/* Gallery Styling */
-.gallery {
-    position: relative;
-    width: 100vw;
+h1 {
+    color: rgb(134, 6, 6);
+    font-family: 'Biography'; /* Match the h1 font */
+    text-align: center;
+    text-decoration: none;
+    font-size: 64px;
+}
+
+/* Slider Styling */
+.slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 500%; /* Make the slider width much larger than the viewport */
     height: 100vh;
-    overflow-y: scroll;  /* Enable vertical scrolling */
     display: flex;
-    flex-direction: column;  /* Stack items vertically */
+    justify-content: space-around;
     align-items: center;
-    justify-content: flex-start; /* Align items at the top */
+    overflow: hidden; /* Ensure the images don't overflow */
+    transition: transform 0.1s ease-out;
 }
 
-
-.cards {
+/* Card Styling */
+.card {
+    width: 400px;
+    height: 500px;
     display: flex;
-    flex-direction: column;  /* Stack list items vertically */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
+    flex-direction: column-reverse;
+    transition: transform 0.1s ease-out;
+    overflow: hidden;
 }
 
-
-.cards li {
-    flex: 0 0 auto;
-    width: 300px; /* Set width for postcards */
-    height: 400px; /* Set height for postcards */
-    margin: 0 20px; /* Space between cards */
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    transform: scale(0); /* Corrected from scale(180) */
-    opacity: 0;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-} 
-
-.cards img {
+/* Image Styling */
+.card img {
     width: 100%;
     height: 100%;
-    object-fit: absolut;
-}  
+    object-fit: cover;
+    transition: transform 0.1s ease-out;
+}
 
+/* Link Styling */
 a {
-    text-decoration: none; /* Removes underline */
-    color: inherit; /* Ensures the link inherits the color of its parent */
+    text-decoration: none;
+    color: inherit;
 }
 
 a:hover {
-    text-decoration: none; /* Optional: Add underline on hover for emphasis */
+    text-decoration: underline;
 }

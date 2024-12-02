@@ -1,107 +1,62 @@
-gsap.registerPlugin(ScrollTrigger);
+const slider = document.querySelector(".slider");
+const cards = document.querySelectorAll(".card");
+const ease = 0.1;
 
-// Define some variables
-let iteration = 0;
-const spacing = 0.05, // Controls spacing between cards
-      snap = gsap.utils.snap(spacing), 
-      cards = gsap.utils.toArray(".cards li"), // Get the list items
-      seamlessLoop = buildSeamlessLoop(cards, spacing), 
-      scrub = gsap.to(seamlessLoop, {
-        totalTime: 0,
-        duration: 1, // Increase duration for smoother animation
-        ease: "power3",
-        paused: true,
-      }),
-      trigger = ScrollTrigger.create({
-        start: 0,
-        onUpdate(self) {
-          if (self.progress === 1 && self.direction > 0 && !self.wrapping) {
-            wrapForward(self);
-          } else if (self.progress < 1e-5 && self.direction < 0 && !self.wrapping) {
-            wrapBackward(self);
-          } else {
-            scrub.vars.totalTime = snap((iteration + self.progress) * seamlessLoop.duration());
-            scrub.invalidate().restart();
-            self.wrapping = false;
-          }
-        },
-        end: "+=3000", // Adjust as per your need
-        pin: ".gallery", // Pin the gallery during scroll
-        scrub: true, // Sync scrolling with animations
-      });
+let currentX = 0;
+let targetX = 0;
 
-function wrapForward(trigger) {
-  iteration++;
-  trigger.wrapping = true;
-  trigger.scroll(trigger.start + 1);
-}
-
-function wrapBackward(trigger) {
-  iteration--;
-  if (iteration < 0) {
-    iteration = cards.length - 1;
-    seamlessLoop.totalTime(seamlessLoop.totalTime() + seamlessLoop.duration() * 10);
-    scrub.pause();
+// Calculate scale factor for the images
+const getScaleFactor = (position, viewportWidth) => {
+  const quarterWidth = viewportWidth / 4;
+  if (position < 0 || position > viewportWidth) {
+    return 0;
+  } else if (position < quarterWidth) {
+    return lerp(0, 0.45, position / quarterWidth);
+  } else if (position < 2 * quarterWidth) {
+    return lerp(0.45, 1.5, (position - quarterWidth) / quarterWidth);
+  } else if (position < 3 * quarterWidth) {
+    return lerp(1.5, 0.45, (position - 2 * quarterWidth) / quarterWidth);
+  } else {
+    return lerp(0.45, 0, (position - 3 * quarterWidth) / quarterWidth);
   }
-  trigger.wrapping = true;
-  trigger.scroll(trigger.end - 1);
-}
+};
 
-function buildSeamlessLoop(items, spacing) {
-  let overlap = Math.ceil((1 / spacing) * 1.5), // Reduce overlap to avoid too much scrolling
-      startTime = items.length * spacing + 0.5,
-      loopTime = (items.length + overlap) * spacing + 1,
-      rawSequence = gsap.timeline({ paused: true }),
-      seamlessLoop = gsap.timeline({
-        paused: true,
-        repeat: -1, // Infinite loop
-        onRepeat() {
-          this._time === this._dur && (this._tTime += this._dur - 0.05);
-        },
-      }),
-      l = items.length + overlap * 2,
-      time = 0,
-      i,
-      index,
-      item;
+// Update the scale for each card
+const updateScales = () => {
+  const viewportWidth = window.innerWidth;
+  cards.forEach((card) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const scaleFactor = getScaleFactor(cardCenter, viewportWidth);
+    const imgScaleFactor = scaleFactor * 1.1;
+    const img = card.querySelector("img");
+    card.style.transform = `scale(${scaleFactor})`;
+    img.style.transform = `scale(${imgScaleFactor})`;
+  });
+};
 
-  // Set initial state with opacity and scale
-  gsap.set(items, { opacity: 1, scale: 1, yPercent: 100 });
+// Linear interpolation function
+const lerp = (start, end, t) => {
+  return start * (1 - t) + end * t;
+};
 
-  for (i = 0; i < l; i++) {
-    index = i % items.length;
-    item = items[index];
-    time = i * spacing;
+// Update the scroll behavior
+const update = () => {
+  currentX = lerp(currentX, targetX, ease);
+  slider.style.transform = `translateX(${currentX}%)`;
+  updateScales();
+  requestAnimationFrame(update);
+};
 
-    rawSequence
-      .fromTo(
-        item,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, zIndex: 100, duration: 0.5, yoyo: true, repeat: 1, ease: "power1.in", immediateRender: false },
-        time
-      )
-      .fromTo(
-        item,
-        { yPercent: 100 }, // Start from below
-        { yPercent: -50, duration: 1, ease: "none", immediateRender: false }, // Slightly above the screen
-        time
-      );
-    seamlessLoop.add("label" + i, time);
-  }
+// Listen to the scroll event
+window.addEventListener("scroll", () => {
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const scrollProgress = window.scrollY / maxScroll;
+  
+  // Adjust targetX based on scroll progress to move the slider horizontally
+  targetX = -scrollProgress * (slider.scrollWidth - window.innerWidth);
 
-  rawSequence.time(startTime);
-
-  seamlessLoop
-    .to(rawSequence, {
-      time: loopTime,
-      duration: loopTime - startTime,
-      ease: "none",
-    })
-    .fromTo(
-      rawSequence,
-      { time: overlap * spacing + 1 },
-      { time: startTime, duration: startTime - (overlap * spacing + 1), immediateRender: false, ease: "none" }
-    );
-
-  return seamlessLoop;
-}
+  // Debugging the targetX value
+  console.      log('scrollProgress:', scrollProgress, 'targetX:', targetX);
+});
+update();
