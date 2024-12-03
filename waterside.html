@@ -23,67 +23,63 @@
     <script>
         let waterImg;
         let cloudsImg;
-let trialImg;
-let boyIdleImg;
-let boyWalk1Img;
-let boyWalk2Img;
-let postcardImg;
-let postcard2Img;
-let soundIconImg;
-let levelImg;
-let audio;
-let customFont;
-let oldman;
-let scene2;
-let boyX = 250;
-let boyY = 450;
-let jumpVelocity = 0;
-let isJumping = false;
-
-let walkingFrame = 0;
-let walkingSpeed = 5;
-let isMoving = false;
-
-let postcardX = 400;
-let postcardY = 320;
-let showPostcard = true;
-let showTextBox = false;
-let transitionFrame = 0;
-
-let soundIconX = 480;
-let soundIconY = 170;
-let soundIconSize = 40;
-
-let textToDisplay = "This is the text that will appear like a typewriter effect.";
-let displayedText = "";
-let charIndex = 0;
-let typingSpeed = 1;
+       let trialImg;
+       let boyIdleImg;
+       let boyWalk1Img;
+       let boyWalk2Img;
+       let postcardImg;
+       let postcard2Img;
+       let soundIconImg;
+       let levelImg;
+       let audio;
+       let customFont;
+       let oldman;
+       let scene2;
+       let boyX = 250;
+       let boyY = 450;
+       let jumpVelocity = 0;
+       let isJumping = false;
+       let walkingFrame = 0;
+       let walkingSpeed = 5;
+       let isMoving = false;
+       let postcardX = 400;
+       let postcardY = 320;
+       let showPostcard = true;
+       let showTextBox = false;
+       let transitionFrame = 0;
+       let soundIconX = 480;
+       let soundIconY = 170;
+       let soundIconSize = 40;
+       let textToDisplay = "This is the text that will appear like a typewriter effect.";
+       let displayedText = "";
+       let charIndex = 0;
+       let typingSpeed = 1;
 
 // Platforms array with each platform having an x, y, width, and height
-let platforms = [
-  { x: 100, y: 450, w: 100, h: 20 },
-  { x: 250, y: 410, w: 100, h: 20 },
-  { x: 400, y: 390, w: 100, h: 20 },
-  { x: 490, y: 320, w: 100, h: 20 }
-];
+       let platforms = [
+       { x: 100, y: 450, w: 100, h: 20 },
+       { x: 250, y: 410, w: 100, h: 20 },
+       { x: 400, y: 390, w: 100, h: 20 },
+       { x: 490, y: 320, w: 100, h: 20 }
+      ];
 
-let currentScene = 1; // Track the current scene
+      let currentScene = 1; // Track the current scene
 
-function preload() {
-  waterImg = loadImage("Image/Water.jpeg");
-  cloudsImg = loadImage("Image/Clouds.jpeg");
-  trialImg = loadImage("Image/Trial.jpeg");
-  boyIdleImg = loadImage("Image/boy_idle.png");
-  boyWalk1Img = loadImage("Image/boy_walk1.png");
-  boyWalk2Img = loadImage("Image/boy_walk2.png");
-  postcardImg = loadImage("Image/postcard.png");
-  postcard2Img = loadImage("Image/postcard opening.png");
-  soundIconImg = loadImage("Image/sound.png");
+    function preload() {
+     waterImg = loadImage("Image/Water.jpeg");
+     cloudsImg = loadImage("Image/Clouds.jpeg");
+     trialImg = loadImage("Image/Trial.jpeg");
+     boyIdleImg = loadImage("Image/boy_idle.png");
+     boyWalk1Img = loadImage("Image/boy_walk1.png");
+     boyWalk2Img = loadImage("Image/boy_walk2.png");
+     postcardImg = loadImage("Image/postcard.png");
+     postcard2Img = loadImage("Image/postcard opening.png");
+     soundIconImg = loadImage("Image/sound.png");
 //   audio = loadSound("Image/Waterside Plaza 2.mp3");
-  customFont = loadFont("PixelifySans-VariableFont_wght.ttf");
-  levelImg = loadImage("Image/Levels.png");
-  oldman = loadImage("Image/Old man.png");
-  scene2 = loadImage("Image/Scene 2.jpeg");
+     customFont = loadFont("PixelifySans-VariableFont_wght.ttf");
+     levelImg = loadImage("Image/Levels.png");
+     oldman = loadImage("Image/Old man.png");
+     scene2 = loadImage("Image/Scene 2.jpeg");
 }
 
 function setup() {
