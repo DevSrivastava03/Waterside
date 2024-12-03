@@ -1,3 +1,4 @@
+// Drag to scroll functionality
 const container = document.querySelector(".images");
 let isDown = false;
 let startX, scrollLeft;
@@ -20,7 +21,7 @@ container.addEventListener("mouseup", () => {
 });
 
 container.addEventListener("mousemove", (e) => {
-    if (!isDown) return; // stop the function from running if not clicked
+    if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - container.offsetLeft;
     const walk = (x - startX) * 1.5; // Multiply by a factor for smoother drag speed
@@ -39,14 +40,60 @@ container.addEventListener("touchmove", (e) => {
     container.scrollLeft = scrollLeft - walk;
 }, { passive: true });
 
+// Modal functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("imagePreview");
+    const modalImage = document.getElementById("previewImage");
+    const closeModal = document.getElementById("closeModal");
+
+    document.querySelectorAll(".img img").forEach((img) => {
+        img.addEventListener("click", () => {
+            modal.style.display = "flex";
+            const modalImageSrc = img.dataset.modalSrc;
+            if (modalImageSrc) {
+                modalImage.src = modalImageSrc;
+            } else {
+                console.error("No modal image source defined for this thumbnail.");
+            }
+
+            // Smooth scaling animation using GSAP
+            gsap.from(modalImage, {
+                scale: 0.5,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power1.inOut",
+            });
+        });
+    });
+
+    closeModal.addEventListener("click", () => {
+        modal.style.display = 'none'; // Hide modal
+    });
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none'; // Close if click outside image
+        }
+    });
+
+    // Close the modal when the Escape key is pressed
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+// GSAP ScrollTrigger for smooth scrolling animation
 gsap.registerPlugin(ScrollTrigger);
+
 gsap.to(".images", {
     scrollTrigger: {
-        trigger: ".images", // The section to watch for scrolling
-        start: "top center", // Animation starts when the top of .images reaches the center of the viewport
-        end: "bottom center", // Animation ends when the bottom of .images reaches the center of the viewport
-        scrub: true, // Smoothens the animation
+        trigger: ".images",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
     },
-    x: 0, // Ensures the animation target is set
-    ease: "power1.inOut", // Defines the easing effect
+    x: 0,
+    ease: "power1.inOut",
 });

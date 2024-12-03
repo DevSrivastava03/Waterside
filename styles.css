@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Ariel, sans-serif; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana,sans-serif; 
     background: #000000;
     color: white; 
     overflow: hidden;

@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="waterside.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/barba.js"></script>
+
 </head>
 <body>
    
@@ -14,15 +16,9 @@
         <li><a href="postcards.html">Postcards</a></li>
     </ul>
     
-    <!-- <img src="Images/tv.png" alt="tv img"> -->
-
-    <!-- <ul class="navbar">
-        <li><a href="about.html">About</a></li>
-        <li><a href="postcards.html">Postcards</a></li>
-    </ul> -->
-    
-    <div id="sketch"><img src="Images/tv.png" alt="tv img"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <div id="sketch">
+      <img src="Images/tv.png" alt="tv img">
+    </div>
 
     <script>
         let waterImg;
@@ -105,7 +101,7 @@ function draw() {
     background(220);
 
     // Draw the background image
-    image(trialImg, 0, 0, 600, 610);
+    image(trialImg, 0, 0, 600, 600);
 
     // Handle movement
     isMoving = false;
@@ -266,6 +262,8 @@ function keyPressed() {
 
 
     </script>
+
+    <script src="transition.js"></script>
     
 </body>
 </html>
