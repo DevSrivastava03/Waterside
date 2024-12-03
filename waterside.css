@@ -63,3 +63,6 @@ img {
 .navbar li a:hover {
     background-color: rgba(51, 51, 51, 0); /* Transparent background on hover */
 }
+.sketch{
+    display: flexbox;
+}

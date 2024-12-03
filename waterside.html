@@ -8,18 +8,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
 </head>
 <body>
-
+   
     <ul class="navbar">
         <li><a href="about.html">About</a></li>
         <li><a href="postcards.html">Postcards</a></li>
     </ul>
-    <img src="Images/tv.png" alt="tv img">
+    
+    <!-- <img src="Images/tv.png" alt="tv img"> -->
 
-    <ul class="navbar">
+    <!-- <ul class="navbar">
         <li><a href="about.html">About</a></li>
         <li><a href="postcards.html">Postcards</a></li>
-    </ul>
-    <img src="Images/tv.png" alt="tv img">
+    </ul> -->
+    
+    <div id="sketch"><img src="Images/tv.png" alt="tv img"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
 
     <script>
@@ -89,7 +91,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600);
+  let  canvas = createCanvas(600, 600);
+  canvas.parent('sketch')
   frameRate(30);
   let x = (windowWidth - width) / 2;  // Calculate the X position
   let y = (windowHeight - height) / 2; 
