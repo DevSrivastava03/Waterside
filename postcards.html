@@ -8,69 +8,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/barba.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </head>
 <body>
-    <nav>
-        <a href="index.html"><h1>Home</h1></a>
-    </nav>
+    <!-- Home link leading back to the index page -->
+    <a href="index.html"><h1>Home</h1></a>
+</nav>
 
-    <div id="imagePreview" class="modal">
-        <span id="closeModal" class="close">&times;</span>
-        <img id="previewImage" class="modal-content" alt="Preview">
-        <p id="imageCaption" class="caption"></p>
-    </div>
+<!-- Modal for displaying the image preview -->
+<div id="imagePreview" class="modal">
+    <!-- Close button for modal -->
+    <span id="closeModal" class="close">&times;</span>
+    <!-- Large version of the image to be displayed in the modal -->
+    <img id="previewImage" class="modal-content" alt="Preview">
+    <!-- Caption text for the modal image -->
+    <p id="imageCaption" class="caption"></p>
+</div>
 
-    <div class="images draggable">
-        <div class="img">
-            <img src="Images/_MG_122.jpeg" data-modal-src="Images/img 122 postcard.png" alt="Postcard 2">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_1210.jpeg" data-modal-src="Images/img 1210 postcard.png"alt="Postcard 10">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_123.jpeg" data-modal-src="Images/img 123 postcard.png" alt="Postcard 3">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_124.jpeg" data-modal-src="Images/img 124 postcard.png" alt="Postcard 4">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_125.jpeg" data-modal-src="Images/img 125 postcard.png" alt="Postcard 5">
-        </div>
-        
-        <div class="img">
-            <img src="Images/_MG_1212.jpeg" data-modal-src="Images/img 1212 postcard.png"alt="Postcard 12">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_126.jpeg" data-modal-src="Images/img 126 postcard.png"alt="Postcard 6">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_127.jpeg" data-modal-src="Images/img 127 postcard.png" alt="Postcard 7">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_128.jpeg"data-modal-src="Images/img 128 postcard.png" alt="Postcard 8">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_121.jpeg" data-modal-src="Images/img 121 postcard.png"alt="Postcard 1">
-        </div>
-        <div class="img">
-            <img src="Images/_MG_129.jpeg" data-modal-src="Images/img 129 postcard.png"alt="Postcard 9">
-        </div>
-        
-        <div class="img">
-            <img src="Images/_MG_1211.jpeg" data-modal-src="Images/img 1211 postcard.png"alt="Postcard 11">
-        </div>
-        
+<!-- Container for displaying a gallery of postcards -->
+<div class="images draggable">
+    <!-- Each postcard image is wrapped in a div -->
+    <div class="img">
+        <!-- Thumbnail with data attribute pointing to the larger image for the modal -->
+        <img src="Images/_MG_122.jpeg" data-modal-src="Images/img 122 postcard.png" alt="Postcard 2">
     </div>
-    <div id="imagePreview" class="modal">
-        <span id="closeModal" class="close">&times;</span>
-        <img id="previewImage" class="modal-content" alt="Preview">
+    <div class="img">
+        <img src="Images/_MG_1210.jpeg" data-modal-src="Images/img 1210 postcard.png" alt="Postcard 10">
     </div>
-    
-    
-    <script src="postcard.js"></script>
-    <script src="transition.js"></script>
+    <div class="img">
+        <img src="Images/_MG_123.jpeg" data-modal-src="Images/img 123 postcard.png" alt="Postcard 3">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_124.jpeg" data-modal-src="Images/img 124 postcard.png" alt="Postcard 4">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_125.jpeg" data-modal-src="Images/img 125 postcard.png" alt="Postcard 5">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_1212.jpeg" data-modal-src="Images/img 1212 postcard.png" alt="Postcard 12">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_126.jpeg" data-modal-src="Images/img 126 postcard.png" alt="Postcard 6">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_127.jpeg" data-modal-src="Images/img 127 postcard.png" alt="Postcard 7">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_128.jpeg" data-modal-src="Images/img 128 postcard.png" alt="Postcard 8">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_121.jpeg" data-modal-src="Images/img 121 postcard.png" alt="Postcard 1">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_129.jpeg" data-modal-src="Images/img 129 postcard.png" alt="Postcard 9">
+    </div>
+    <div class="img">
+        <img src="Images/_MG_1211.jpeg" data-modal-src="Images/img 1211 postcard.png" alt="Postcard 11">
+    </div>
+</div>
+
+<!-- Another modal (duplicate of the above, might not be necessary if already included) -->
+<div id="imagePreview" class="modal">
+    <span id="closeModal" class="close">&times;</span>
+    <img id="previewImage" class="modal-content" alt="Preview">
+</div>
+
+<!-- Linking JavaScript files for modal and transitions -->
+<script src="postcard.js"></script> <!-- Script for handling postcard modal interactions -->
+<script src="transition.js"></script> <!-- Script for handling page transitions -->
 
 </body>
 </html>

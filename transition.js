@@ -1,3 +1,4 @@
+
 // Initialize Barba.js for smooth transitions
 barba.init({
     transitions: [{
@@ -75,7 +76,7 @@ function loadJS(url) {
             jsFile = ''; // about.html doesn't have a specific JS file
             break;
         case 'waterside':
-            jsFile = 'waterside.js'; // waterside.js is specific to the waterside page
+            jsFile = ''; // waterside.js is specific to the waterside page
             break;
         case 'postcard':
             jsFile = 'postcard.js'; // postcard.js is specific to the postcard page
