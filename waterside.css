@@ -25,14 +25,15 @@ img {
 /* Image Container Styling */
 #sketch {
     position: absolute;
-    top: 130px;
-    left: 0px; /* Center horizontally */    bottom: 0px;
+    top: 190px;
+    left: 0px; /* Center horizontally */
+    bottom: 0px;
     width: 760px;
     height: 450px;
     display: flex;
     justify-content: center;  /* Center horizontally */
     align-items: center;      /* Center vertically */
-    background-color: #FFE8D2; /* Match body background */
+    background-color: #000000; /* Match body background */
     z-index: 2; /* Make sure it's on top if needed */
 }
 
