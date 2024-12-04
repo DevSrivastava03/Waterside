@@ -23,12 +23,12 @@
     </div>
     
     <!-- Wave effects for styling -->
-    <section>
+    <!-- <section>
       <div class="wave wave1"></div>
       <div class="wave wave2"></div>
       <div class="wave wave3"></div>
       <div class="wave wave4"></div>
-    </section>
+    </section> -->
 
     <script>
     /* p5.js Sketch Variables */
@@ -101,15 +101,15 @@ function preload() {
 }
 
 function setup() {
-  let canvas = createCanvas(600, 600); // Set canvas size to match TV container
+  let canvas = createCanvas(1920 , 1080); // Set canvas size to match TV container
         canvas.id('sketchCanvas'); // Assign ID for styling or DOM manipulation
-        canvas.position(490, 50); // Align canvas with the TV container
+        canvas.position(0, 0); // Align canvas with the TV container
 }
 
 function draw() {
   // Scene 1 logic
   background(220);
-  image(trialImg, 0, 0, 600, 610);
+  image(trialImg, 0, 0, 1920, 1080);
 
   // Handle movement
   isMoving = false;
