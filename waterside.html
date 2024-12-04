@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="waterside.css">
+    <!-- <link rel="stylesheet" href="waterside.css"> -->
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/barba.js"></script>
 
@@ -16,9 +17,14 @@
         <li><a href="postcards.html">Postcards</a></li>
     </ul>
     <div id="sketch">
-      <img src="Images/tv.png" alt="tv img">
+      <!-- <img src="Images/tv.png" alt="tv img"> -->
     </div>
-    
+    <section>
+      <div class="wave wave1"></div>
+      <div class="wave wave2"></div>
+      <div class="wave wave3"></div>
+      <div class="wave wave4"></div>
+  </section>
 
     <!-- <iframe   src="https://editor.p5js.org/srivd043/full/Dl0FZ_f54"></iframe> -->
 
@@ -85,13 +91,11 @@
 }
 
 function setup() {
-  let  canvas = createCanvas(600, 600);
-  canvas.parent('sketch')
-  frameRate(30);
-  let x = (windowWidth - width) / 2;  // Calculate the X position
-  let y = (windowHeight - height) / 2; 
-  textFont(customFont);
+    let canvas = createCanvas(600, 600); // Match the TV container dimensions
+    canvas.id('sketchCanvas'); // Assign an ID to the canvas
+    canvas.position(490, 50); // Position the canvas to align with the TV
 }
+
 
 function draw() {
   if (currentScene === 1) {
@@ -99,7 +103,7 @@ function draw() {
     background(220);
 
     // Draw the background image
-    image(trialImg, 0, 0, 600, 600);
+    image(trialImg, 0, 0, 600, 610);
 
     // Handle movement
     isMoving = false;
