@@ -12,8 +12,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana,sans-serif; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
     background: #000000;
+    text-decoration: none;
     color: white; 
     overflow: hidden;
     text-align: center;
@@ -126,11 +127,11 @@ section .wave.wave4 {
     color: rgb(134, 6, 6);
     font-family: 'Biography'; /* Match the h1 font */
     text-align: center;
-    text-decoration: none;
+    /* text-decoration: none; */
     font-size: 48px; /* Adjust size for readability */
     padding: 8px 16px;
 }
 
 .navbar li a:hover {
-    background-color: rgba(0, 0, 0, 0); /* Transparent background on hover */
+    background-color: rgba(255, 255, 255, 0); /* Transparent background on hover */
 }
