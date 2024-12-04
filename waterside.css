@@ -31,7 +31,7 @@ img {
     width: 760px;
     height: 450px;
     display: flex;
-    justify-content: center;  /* Center horizontally */
+    justify-content:center;  /* Center horizontally */
     align-items: center;      /* Center vertically */
     background-color: #000000; /* Match body background */
     z-index: 2; /* Make sure it's on top if needed */
@@ -41,7 +41,7 @@ img {
 #sketch img {
     max-width: 100%;
     max-height: 100%;
-    z-index: 0; /* Ensure the image is behind any canvas content */
+    z-index: 0; 
 }
 
 
